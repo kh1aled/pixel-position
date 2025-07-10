@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-section-head class="mt-12">Job Show</x-section-head>
+    <x-section-head class="mt-16">Job Show</x-section-head>
 
     <div class="w-lg border border-white/10 rounded-xl p-[1.5rem] mx-auto ">
         <div>
@@ -41,7 +41,7 @@
         </div>
 
 
-        <x-animate-image src="{{ asset('storage/posts/' . e($job->avatar)) }}" div_width="w-full h-[32rem]"
+        <x-animate-image src="{{ asset('storage/posts/' . e($job->avatar)) }}" div_width="w-full h-[32rem] mt-5"
             alt="{{ $employer->name ?? 'Company' }} Logo" />
 
 
@@ -50,14 +50,16 @@
 
     @can('update-job', $employer)
         <div class="w-full flex justify-end items-center gap-6 mb-4">
+            <x-primary-link href="{{ route('jobs.edit', $job->id) }}">Update</x-primary-link>
+
+
             <form action="{{ route('jobs.destroy', $job->id) }}" method="post">
                 @csrf
                 @method('DELETE')
 
-                <x-danger-button>delete</x-danger-button>
+                <x-danger-button>Delete</x-danger-button>
 
             </form>
-            <x-primary-link href="{{ route('jobs.edit', $job->id) }}">edit</x-primary-link>
         </div>
     @endcan
 

@@ -11,10 +11,11 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
+        <!-- Email Address -->
         <x-form-fields>
             <x-input-label for="name" :value="__('name')" />
 
@@ -49,6 +50,39 @@
                     @endif
                 </div>
             @endif
+        </x-form-fields>
+
+       {{-- avatar img --}}
+        <x-form-fields class="justify-center items-center">
+
+            <x-input-label for="tags" :value="__('Avatar Image')" />
+
+
+            <div
+                class="w-full max-w-xl rounded-xl p-10 border border-white border-dashed flex justify-center items-center flex-col">
+                <div id="image_upload_from_update" class="mt-3 block">
+
+                    <x-label-button-primary for="avatar_from_update" type="button">
+                        Avatar Image
+                    </x-label-button-primary>
+                </div>
+
+                <div id="image_update_from_update" class="mt-3 hidden justify-center items-center gap-3 flex-col">
+                    <img id="image_from_update" src="{{ asset('/storage/images/' . $user->avatar) }}" alt="" class="w-20 h-20 rounded-xl">
+                    
+                    <div class="flex justify-center items-center gap-3">
+
+
+                        <x-label-button-primary type="button" for="avatar_from_update" id="avatar_update">
+                            update
+                        </x-label-button-primary>
+                        <x-danger-button type="button" id="delete_image_from_update">Delete</x-danger-button>
+
+                    </div>
+                </div>
+            </div>
+            <input type="file" name="avatar" id="avatar_from_update" value="{{$user->avatar}}" class="hidden">
+            <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
         </x-form-fields>
 
         <div class="flex items-center justify-end gap-4">

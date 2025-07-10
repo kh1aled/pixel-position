@@ -42,10 +42,28 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        if($request->hasFile("avatar")){
+            //get file
+            $myImage= $request->file("avatar");
+
+            //get file extension
+            $extenstion = $myImage->getClientOriginalExtension();
+
+            //name new file
+            $imageName = time() . "." . $extenstion;
+
+            //save file in my server
+            $path = $myImage->storeAs("/images" , $imageName , "public");
+
+            $request->user()->avatar = $imageName;
+        }
+
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
+    
 
     /**
      * Delete the user's account.

@@ -180,7 +180,7 @@
         </nav>
 
         <!-- Page Content -->
-        <main class="mx-auto max-w-[986px]">
+        <main class="mx-auto py-5 max-w-[986px]">
             {{ $slot }}
         </main>
     </div>

@@ -6,6 +6,7 @@ use App\Http\Requests\JobRequest;
 use App\Models\Job;
 use App\Models\Employer;
 use App\Models\Tag;
+use App\Policies\JobPolicy;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

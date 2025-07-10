@@ -3,8 +3,7 @@
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PostContoller;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserContoller;
-use Illuminate\Mail\Mailables\Content;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 //jobs routes
@@ -27,7 +26,6 @@ Route::controller(JobController::class)->group(
 
 
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -42,9 +40,18 @@ Route::middleware('auth')->group(function () {
 Route::apiResource('posts', PostContoller::class);
 
 
+Route::get('/send-test', function () {
+    Mail::raw('This is a test email from Laravel using Mailtrap', function ($message) {
+        $message->to('khaledhamdy@mail.com')
+            ->subject('Mailtrap Test');
+    });
+
+    return 'Sent (check Mailtrap inbox)';
+});
+
 require __DIR__ . '/auth.php';
 
 
-
-
-
+Route::get("/test" , function(){
+    return view("test" , ["name" => "aya"]);
+});
